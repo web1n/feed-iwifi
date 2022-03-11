@@ -1,7 +1,7 @@
 local proto = luci.model.network:register_protocol("iwifi")
 
 function proto.get_i18n(_)
-    return luci.i18n.translate("Hebei Unicom IWiFi Client")
+    return luci.i18n.translate("Hebei Unicom iWiFi Client")
 end
 
 function proto.opkg_package(_)

@@ -5,9 +5,9 @@ local hostname, accept_ra, send_rs
 local bcast, defaultroute, peerdns, dns, metric, clientid, vendorclass
 
 
-username = section:taboption("general", Value, "username", translate("IWiFi username"))
+username = section:taboption("general", Value, "username", translate("iWiFi username"))
 
-password = section:taboption("general", Value, "password", translate("IWiFi password"))
+password = section:taboption("general", Value, "password", translate("iWiFi password"))
 password.password = true
 
 hostname = section:taboption("general", Value, "hostname",

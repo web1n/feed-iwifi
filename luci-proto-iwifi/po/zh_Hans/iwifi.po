@@ -1,0 +1,13 @@
+msgid ""
+msgstr ""
+
+"Content-Type: text/plain; charset=UTF-8"
+
+msgid "Hebei Unicom iWiFi Client"
+msgstr "河北联通校园 WiFi"
+
+msgid "iWiFi username"
+msgstr "校园 WiFi 用户名"
+
+msgid "iWiFi password"
+msgstr "校园 WiFi 密码"
