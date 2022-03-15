@@ -28,13 +28,13 @@ while true do
         if (check_result ~= true and check_result ~= false) then
             print('%s: find redirect url' % args.interface)
 
-            local res, message = iwifi.login(args.interface, args.username, args.password, check_result)
+            local res, message = iwifi.login(status['ipv4-address'], args.username, args.password, check_result)
             if res == 'ok' then
                 print('success')
             else
                 print(message or 'can not auth')
 
-                luci.util.ubus('network.interface.%s' % args.interface, 'down', {})
+                luci.util.ubus('network.interface.%s' % status['ipv4-address'], 'down', {})
                 luci.util.ubus('network.interface', 'notify_proto', {
                     interface = interface,
                     action = 3,
