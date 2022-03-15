@@ -1,6 +1,5 @@
 require 'nixio.fs'
 
-require 'luci.http'
 require 'luci.util'
 require 'luci.jsonc'
 
@@ -28,12 +27,21 @@ function parse_url(url)
     return params
 end
 
+function http_build_query(params)
+	local request_data = {}
+	for k,v in pairs(params) do
+		table.insert(request_data, '%s=%s' % {k, v})
+	end
+
+	return table.concat(request_data, '&')
+end
+
 function curl(url, interface, data, timeout)
     local user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36'
 
     local command = "curl -i -s --user-agent '%s' --interface %s --connect-timeout %d '%s'" % { user_agent, interface, timeout or 3, url }
     if data ~= nil then
-        command = '%s -d \'%s\'' % { command, luci.http.urlencode_params(data) }
+        command = '%s -d \'%s\'' % { command, http_build_query(data) }
     end
 
     local result = luci.util.exec(command):split('\r\n\r\n', 1)
