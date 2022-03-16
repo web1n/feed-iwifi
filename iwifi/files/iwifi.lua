@@ -28,12 +28,12 @@ function parse_url(url)
 end
 
 function http_build_query(params)
-	local request_data = {}
-	for k,v in pairs(params) do
-		table.insert(request_data, '%s=%s' % {k, v})
-	end
+    local request_data = {}
+    for k, v in pairs(params) do
+        table.insert(request_data, '%s=%s' % { k, v })
+    end
 
-	return table.concat(request_data, '&')
+    return table.concat(request_data, '&')
 end
 
 function curl(url, interface, data, timeout)
@@ -94,37 +94,37 @@ function iwifi.login(interface, username, password, redirect_url)
 
     local data = {
         mobile = username,
-		mobile_english = '',
+        mobile_english = '',
         password = password,
-		password_english = '',
+        password_english = '',
         auth_type = 'account',
         enterprise_id = 51,
         enterprise_url = 'HBHUAWEI',
         site_id = 4662,
         client_mac = params['user-mac']:gsub(':', '%%3A'),
         nas_ip = params['nasip'],
-		wlanacname = 'None',
+        wlanacname = 'None',
         user_ip = params['userip'],
-		ap_mac = 'None',
+        ap_mac = 'None',
         vlan = '11-11-11-11-11-11',
-		ssid = 'None',
-		vlan_id = 'None',
-		ip = 'None',
-		ac_ip = 'None',
-		from = 'None',
-		sn = 'None',
-		gw_id = 'None',
-		gw_address = 'None',
-		gw_port = 'None',
-		url = 'None',
-		language_tag = 0
+        ssid = 'None',
+        vlan_id = 'None',
+        ip = 'None',
+        ac_ip = 'None',
+        from = 'None',
+        sn = 'None',
+        gw_id = 'None',
+        gw_address = 'None',
+        gw_port = 'None',
+        url = 'None',
+        language_tag = 0
     }
 
     local code, result_data = curl(URL_DO_LOGIN, interface, data)
     if code ~= 200 then
         return 'error', 'response code is %d' % code
-	elseif result_data == nil then
-		return 'error', 'response data is null'
+    elseif result_data == nil then
+        return 'error', 'response data is null'
     else
         local parsed_data = luci.jsonc.parse(result_data)
 

@@ -7,7 +7,6 @@ require 'luci.util'
 
 local argparse = require 'argparse'
 
-
 local parser = argparse('iwifi', 'Client for Hebei Unicom iWiFi Service')
 parser:option('-I --interface', 'Network interface'):count(1)
 parser:option('-U --username', 'Your username'):count(1)
@@ -20,9 +19,9 @@ print('iWiFi client')
 while true do
     local status = luci.util.ubus('network.interface.%s' % args.interface, 'status', {})
     if status == nil then
-		print('interface not found')
+        print('interface not found')
 
-		os.exit()
+        os.exit()
     elseif status['ipv4-address'] then
         local check_result = iwifi.check_net(status['ipv4-address'])
         if (check_result ~= true and check_result ~= false) then

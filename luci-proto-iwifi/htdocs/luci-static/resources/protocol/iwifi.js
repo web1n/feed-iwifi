@@ -6,17 +6,19 @@
 var callFileRead = rpc.declare({
 	object: 'file',
 	method: 'read',
-	params: [ 'path' ],
-	expect: { data: '' },
-	filter: function(value) { return value.trim() }
+	params: ['path'],
+	expect: {data: ''},
+	filter: function (value) {
+		return value.trim()
+	}
 });
 
 return network.registerProtocol('iwifi', {
-	getI18n: function() {
+	getI18n: function () {
 		return _('Hebei Unicom iWiFi Client');
 	},
 
-	renderFormOptions: function(s) {
+	renderFormOptions: function (s) {
 		var dev = this.getL2Device() || this.getDevice(), o;
 
 		s.taboption('general', form.Value, 'username', _('iWiFi username'));
@@ -25,9 +27,9 @@ return network.registerProtocol('iwifi', {
 		o.password = true;
 
 		o = s.taboption('general', form.Value, 'hostname', _('Hostname to send when requesting DHCP'));
-		o.datatype    = 'or(hostname, "*")';
-		o.load = function(section_id) {
-			return callFileRead('/proc/sys/kernel/hostname').then(L.bind(function(hostname) {
+		o.datatype = 'or(hostname, "*")';
+		o.load = function (section_id) {
+			return callFileRead('/proc/sys/kernel/hostname').then(L.bind(function (hostname) {
 				this.placeholder = hostname;
 				return form.Value.prototype.load.apply(this, [section_id]);
 			}, this));
@@ -45,14 +47,14 @@ return network.registerProtocol('iwifi', {
 		o = s.taboption('advanced', form.DynamicList, 'dns', _('Use custom DNS servers'));
 		o.depends('peerdns', '0');
 		o.datatype = 'ipaddr';
-		o.cast     = 'string';
+		o.cast = 'string';
 
 		o = s.taboption('advanced', form.Value, 'metric', _('Use gateway metric'));
 		o.placeholder = '0';
-		o.datatype    = 'uinteger';
+		o.datatype = 'uinteger';
 
 		o = s.taboption('advanced', form.Value, 'clientid', _('Client ID to send when requesting DHCP'));
-		o.datatype  = 'hexstring';
+		o.datatype = 'hexstring';
 
 		s.taboption('advanced', form.Value, 'vendorid', _('Vendor Class to send when requesting DHCP'));
 
@@ -62,6 +64,6 @@ return network.registerProtocol('iwifi', {
 
 		o = s.taboption('advanced', form.Value, 'mtu', _('Override MTU'));
 		o.placeholder = dev ? (dev.getMTU() || '1500') : '1500';
-		o.datatype    = 'max(9200)';
+		o.datatype = 'max(9200)';
 	}
 });
