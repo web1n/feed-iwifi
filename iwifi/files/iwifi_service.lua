@@ -23,11 +23,11 @@ while true do
 
         os.exit()
     elseif status['ipv4-address'] then
-        local check_result = iwifi.check_net(status['ipv4-address'])
+        local check_result = iwifi.check_net(status['ipv4-address'][1].address)
         if (check_result ~= true and check_result ~= false) then
             print('%s: find redirect url' % args.interface)
 
-            local res, message = iwifi.login(status['ipv4-address'], args.username, args.password, check_result)
+            local res, message = iwifi.login(status['ipv4-address'][1].address, args.username, args.password, check_result)
             if res == 'ok' then
                 print('success')
             else
